@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Weather.css";
 import search_icon from "../assets/search.png";
 import clear_icon from "../assets/clear.png";
@@ -8,7 +8,14 @@ import rain_icon from "../assets/rain.png";
 import wind_icon from "../assets/wind.png";
 import humidity_icon from "../assets/humidity.png";
 
+
+
+
+
 const Weather = () => {
+
+const [weatherData, setWeatherData] = useState(false)
+
 const search = async (city) => {
   try {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${import.meta.env.VITE_APP_ID}`
@@ -16,6 +23,11 @@ const search = async (city) => {
     const responce = await fetch(url)
     const data = await responce.json
     console.log(data)
+    setWeatherData({
+      humidity: data.main.humidity,
+      windSpeed: data.wind.speed,
+      temperature
+    })
   } catch (error) {
     
   }
